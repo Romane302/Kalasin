@@ -59,10 +59,13 @@ def create_pdf():
     pdf.cell(160, 10, text=f"Cash en bourse")
     pdf.cell(20,10, text=f"{correction_bon}", ln=True, align = "R")
 
-    pdf_output = pdf.output(dest='S')
-                     
-    # Wrap in BytesIO for Streamlit
-    return BytesIO(pdf_output)
+    pdf_output = str(pdf.output('S')).encode("latin-1")
+    return pdf_output
+
+#     buffer = BytesIO()
+#     pdf.output(buffer)
+#     buffer.seek(0)
+#     return buffer
 
 
 #button genéré + télécharger
