@@ -59,7 +59,7 @@ def create_pdf():
     pdf.cell(160, 10, txt=f"Cash en bourse")
     pdf.cell(20,10, txt=f"{correction_bon}", ln=True, align = "R")
 
-    pdf_output = pdf.output(dest='S')
+    pdf_output = pdf.output(dest='S').encode("latin-1")
                      
     # Wrap in BytesIO for Streamlit
     return bytes(pdf_output)
