@@ -58,11 +58,11 @@ def create_pdf():
     pdf.cell(180,5, ln=True, border = "B")
     pdf.cell(160, 10, txt=f"Cash en bourse")
     pdf.cell(20,10, txt=f"{correction_bon}", ln=True, align = "R")
-
-    buffer = BytesIO()
+    
+    buffer= BytesIO()
     pdf.output(buffer)
-    buffer.seek(0)  # Rewind to start
-    return buffer
+    buffer.seek(0)
+    return buffer.read()
 
 #button genéré + télécharger
 if st.button("Générer PDF"):
