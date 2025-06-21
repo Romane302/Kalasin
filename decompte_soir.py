@@ -42,27 +42,27 @@ def create_pdf():
 
     pdf.set_font("Arial", size=15, style= 'B')
     pdf.cell(60,20)
-    pdf.cell(70, 20, txt=f"Décompte du {aujourdhui}", ln=True, align='C', border = "B")
+    pdf.cell(70, 20, text=f"Décompte du {aujourdhui}", ln=True, align='C', border = "B")
 
     pdf.set_font("Times", size = 12)
-    pdf.cell(200,30, txt= "", ln=True)
+    pdf.cell(200,30, text= "", ln=True)
     for row in data1: 
-         pdf.cell(160,10, txt= row[0])
-         pdf.cell(20,10, txt= str(row[1]), ln=True, align = "R")
+         pdf.cell(160,10, text= row[0])
+         pdf.cell(20,10, text= str(row[1]), ln=True, align = "R")
     pdf.cell(180,5, ln=True, border = "B")
-    pdf.cell(160, 10, txt= "Chiffre d'affaire en cash")
-    pdf.cell(20,10, txt=f"{CA_cash}", ln=True, align ="R")
+    pdf.cell(160, 10, text= "Chiffre d'affaire en cash")
+    pdf.cell(20,10, text=f"{CA_cash}", ln=True, align ="R")
     for elements in data2: 
-         pdf.cell(160,10, txt= elements[0])
-         pdf.cell(20,10, txt= str(elements[1]), ln=True, align= "R")
+         pdf.cell(160,10, text= elements[0])
+         pdf.cell(20,10, text= str(elements[1]), ln=True, align= "R")
     pdf.cell(180,5, ln=True, border = "B")
-    pdf.cell(160, 10, txt=f"Cash en bourse")
-    pdf.cell(20,10, txt=f"{correction_bon}", ln=True, align = "R")
+    pdf.cell(160, 10, text=f"Cash en bourse")
+    pdf.cell(20,10, text=f"{correction_bon}", ln=True, align = "R")
     
-    pdf_output = str(pdf.output(dest='S')).encode('latin1')
-
-    # Wrap in BytesIO for Streamlit
-    return BytesIO(pdf_output)
+    buffer = BytesIO()
+    pdf.output(buffer)
+    buffer.seek(0)
+    return buffer
 
 #button genéré + télécharger
 if st.button("Générer PDF"):
