@@ -62,7 +62,7 @@ def create_pdf():
     pdf_output = pdf.output(dest='S')
                      
     # Wrap in BytesIO for Streamlit
-    return BytesIO(pdf_output)
+    return bytes(pdf_output)
 
 
 #button genéré + télécharger
