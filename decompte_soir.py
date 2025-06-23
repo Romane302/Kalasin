@@ -2,6 +2,7 @@ import streamlit as st
 from fpdf import FPDF
 from datetime import date
 from io import BytesIO
+from PIL import Image
 
 #formatting web page
 left_co, cent_co,last_co = st.columns(3)
@@ -63,6 +64,15 @@ def create_pdf():
                      
     # Wrap in BytesIO for Streamlit
     return bytes(pdf_output)
+
+
+uploaded_file = st.file_uploader("Upload a scanned document", type=["jpg", "jpeg", "png", "pdf"])
+
+if uploaded_file:
+    st.success("File uploaded successfully")
+    if uploaded_file.type.startswith("image/"):
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Scanned document")
 
 
 #button genéré + télécharger
