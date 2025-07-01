@@ -150,7 +150,7 @@ from fpdf import FPDF
 from datetime import date
 from PIL import Image
 import tempfile
-import pypdf
+from pypdf import PdfReader, PdfWriter
 
 st.set_page_config(layout="centered")
 
