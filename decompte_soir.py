@@ -143,6 +143,9 @@
 #     )
 
 
+import sys
+import streamlit as st
+st.write("Python executable:", sys.executable)
 
 
 import streamlit as st
@@ -152,9 +155,7 @@ from PIL import Image
 import tempfile
 from pypdf import PdfReader, PdfWriter
 
-import sys
-import streamlit as st
-st.write("Python executable:", sys.executable)
+
 
 st.set_page_config(layout="centered")
 
