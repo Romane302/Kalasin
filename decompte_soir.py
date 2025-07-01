@@ -143,11 +143,6 @@
 #     )
 
 
-import sys
-import streamlit as st
-st.write("Python executable:", sys.executable)
-
-
 import streamlit as st
 from fpdf import FPDF
 from datetime import date
