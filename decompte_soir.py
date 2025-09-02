@@ -4,7 +4,14 @@ from datetime import date
 from PIL import Image
 import tempfile
 from pypdf import PdfReader, PdfWriter
+from mailersend import MailerSendClient, EmailBuilder
+from dotenv import load_dotenv
+import os
+import base64
 
+
+load_dotenv()  # take environment variables from .env
+api_key = os.getenv("MAILERSEND_API_KEY")
 
 
 st.set_page_config(layout="centered")
@@ -147,6 +154,7 @@ def merge_with_uploaded_file(generated_pdf_path, uploaded_file_path, final_path)
     with open(final_path, "wb") as f:
         writer.write(f)
 
+
 if st.button("Générer PDF") and uploaded_file:
     with tempfile.TemporaryDirectory() as tmpdir:
         generated_pdf_path = f"{tmpdir}/main.pdf"
@@ -190,9 +198,11 @@ if st.button("Générer PDF") and uploaded_file:
                     writer.add_page(page)
 
         # Write final PDF
-        final_pdf_path = f"{tmpdir}/final_merged.pdf"
+        final_pdf_path = f"decompte_{aujourdhui}.pdf"
         with open(final_pdf_path, "wb") as f_out:
             writer.write(f_out)
+
+        st.session_state.final_pdf_path = final_pdf_path
 
         # Download button
         with open(final_pdf_path, "rb") as f:
@@ -202,3 +212,29 @@ if st.button("Générer PDF") and uploaded_file:
                 file_name=f"decompte_{aujourdhui}.pdf",
                 mime="application/pdf"
             )
+
+
+
+if st.button("Envoyer le décompte par mail"):
+    if "final_pdf_path" not in st.session_state:
+        st.error("⚠️ You need to generate the PDF before sending it by email.")
+    else:
+        try:
+            with open(st.session_state.final_pdf_path, "rb") as f:
+                pdf_content = base64.b64encode(f.read()).decode("utf-8")
+            ms = MailerSendClient(api_key)
+
+            email = (EmailBuilder()
+                    .from_email("decompte@test-2p0347zkvp7lzdrn.mlsender.net", "Romane Cotting")
+                    .to_many([{"email": "romane.cotting@gmail.com", "name": "Recipient"}])
+                    .subject(f"Décompte du soir - {aujourdhui}")
+                    .html(f"Ci-joint, le décompte du soir du {aujourdhui} ")
+                    .text(f"Please find attached the daily report for {aujourdhui}.")
+                    .attach_file(st.session_state.final_pdf_path)
+                    .build())
+
+            response = ms.emails.send(email)
+            st.success("Email envoyé avec succès!")
+
+        except Exception as e:
+            st.error(f"L'email n'a pas pu être envoyé: {e}")

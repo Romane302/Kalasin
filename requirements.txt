@@ -1,3 +1,5 @@
 fpdf
 streamlit
 pypdf
+mailersend
+
