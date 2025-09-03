@@ -1,0 +1,13 @@
+#ignore environment variables
+.env
+
+#ignore Python cahce
+__pycache__/
+*.pdf
+
+#ignore generated pdfs
+*.pdf
+
+#ignore temporary files 
+*.tmp
+*.log
