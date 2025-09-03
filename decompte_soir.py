@@ -8,9 +8,10 @@ from mailersend import MailerSendClient, EmailBuilder
 from dotenv import load_dotenv
 import os
 import base64
+from dotenv import load_dotenv
 
 
-load_dotenv()  # take environment variables from .env
+load_dotenv()
 api_key = os.getenv("MAILERSEND_API_KEY")
 
 
