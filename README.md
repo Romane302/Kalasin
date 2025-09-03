@@ -6,4 +6,5 @@ A Streamlit application to generate and share a daily cash register report as a 
 - Automatic generation of a daily PDF report
 - Option to attach additional files (images or PDFs)
 - Download the generated PDF
+- Send by mail the generated PDF
 
