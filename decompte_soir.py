@@ -10,8 +10,8 @@ import os
 import base64
 from dotenv import load_dotenv
 
-
 load_dotenv()
+load_dotenv(".env2")
 api_key = os.getenv("MAILERSEND_API_KEY")
 
 
