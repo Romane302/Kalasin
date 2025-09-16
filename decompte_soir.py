@@ -5,14 +5,12 @@ from PIL import Image
 import tempfile
 from pypdf import PdfReader, PdfWriter
 from mailersend import MailerSendClient, EmailBuilder
-from dotenv import load_dotenv
 import os
 import base64
 
 
-load_dotenv()  # take environment variables from .env
-api_key = os.getenv("MAILERSEND_API_KEY")
 
+api_key = os.getenv("MAILERSEND_API_KEY")
 
 st.set_page_config(layout="centered")
 
