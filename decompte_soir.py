@@ -7,7 +7,6 @@ from pypdf import PdfReader, PdfWriter
 from mailersend import MailerSendClient, EmailBuilder
 import os
 import base64
-from dotenv import load_dotenv
 
 
 api_key = os.getenv("MAILERSEND_API_KEY")
