@@ -1,5 +1,5 @@
 fpdf
 streamlit
 pypdf
-mailersend-py
+mailersend
 pillow
