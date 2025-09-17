@@ -219,7 +219,10 @@ if st.button("Envoyer le décompte par mail"):
         try:
             with open(st.session_state.final_pdf_path, "rb") as f:
                 pdf_content = base64.b64encode(f.read()).decode("utf-8")
-            ms = MailerSendClient(api_key)
+            if not api_key:
+                st.error("❌ API key is missing. Did you set it in Streamlit secrets?")
+            else:
+                ms = MailerSendClient(api_key=api_key)
 
             email = (EmailBuilder()
                     .from_email("decompte@test-2p0347zkvp7lzdrn.mlsender.net", "Romane Cotting")
