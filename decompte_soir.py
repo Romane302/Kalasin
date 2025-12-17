@@ -13,24 +13,26 @@ api_key = os.getenv("MAILERSEND_API_KEY")
 
 st.set_page_config(layout="centered")
 
-# Layout
+### LAYOUT ### 
 left_co, cent_co, last_co = st.columns(3)
 with last_co:
     st.image("images/logo.png", width=170)
 with left_co:
     st.title("Décompte du jour")
 
-# Variables
-CA = st.number_input("Chiffre d'affaire selon ticket")
-CB1 = st.number_input("Encaissé par carte avec machine 1")
-CB2 = st.number_input("Encaissé par carte avec machine 2")
+### VARIABLES DEFINTIION ###
+CA = st.number_input("Chiffre d'affaire selon ticket"; step=1)
+CB1 = st.number_input("Encaissé par carte avec machine 1"; step=1)
+CB2 = st.number_input("Encaissé par carte avec machine 2"; step=1)
 CB_sum = CB1 + CB2
 CA_cash = CA - CB_sum
-Bon_cash = st.number_input("Bons vendus par cash")
-Bon_carte = st.number_input("Bons vendus par carte")
-Bon_encaisse = st.number_input("Bons encaissés")
-Facture = st.number_input("Montant encaissé sur facture")
+Bon_cash = st.number_input("Bons vendus par cash"; step=1)
+Bon_carte = st.number_input("Bons vendus par carte"; step=1)
+Bon_encaisse = st.number_input("Bons encaissés"; step=1)
+Facture = st.number_input("Montant encaissé sur facture"; step=1)
 correction_bon = CA_cash + Bon_cash + Bon_carte - Bon_encaisse - Facture
+
+
 
 
 # Initialize session state variables
@@ -87,7 +89,7 @@ aujourdhui = date.today().strftime("%d.%m.%Y")
 uploaded_file = st.file_uploader("Ajouter une pièce jointe (image ou PDF)", type=["jpg", "jpeg", "png", "pdf"], accept_multiple_files = True)
 
 
-
+### GENERATION OF PDF ###
 
 def generate_main_pdf(output_path):
     pdf = FPDF()
